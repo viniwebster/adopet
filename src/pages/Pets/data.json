@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Dunga",
+    "img": "assets/pets/Dunga.svg",
+    "age": "2 anos",
+    "size": "Porte pequeno",
+    "characteristics": "Calmo e educado",
+    "location": "Rio de Janeiro (RJ)",
+    "id": 1
+  },
+  {
+    "name": "Felicia",
+    "img": "assets/pets/Felícia.svg",
+    "age": "3 meses",
+    "size": "Porte pequeno",
+    "characteristics": "Ativa e carinhosa",
+    "location": "Nova Iguaçu (RJ)",
+    "id": 2
+  },
+  {
+    "name": "Sirius",
+    "img": "assets/pets/sirius.svg",
+    "age": "6 meses",
+    "size": "Porte grande",
+    "characteristics": "Ativo e educado",
+    "location": "Duque de Caxias (RJ)",
+    "id": 3
+  },
+  {
+    "name": "Fiona",
+    "img": "assets/pets/Fiona.svg",
+    "age": "3 anos",
+    "size": "Porte pequeno",
+    "characteristics": "Calma e carinhosa",
+    "location": "São Paulo (SP)",
+    "id": 4
+  },
+  {
+    "name": "Sid",
+    "img": "assets/pets/Sid.svg",
+    "age": "8 meses",
+    "size": "Porte médio/grande",
+    "characteristics": "Brincalhão e amável",
+    "location": "Santana de Parnaíba (SP)",
+    "id": 5
+  },
+  {
+    "name": "Yoda",
+    "img": "assets/pets/Yoda.svg",
+    "age": "1 ano",
+    "size": "Porte médio",
+    "characteristics": "Ativa e carinhoso",
+    "location": "Belo Horizonte (MG)",
+    "id": 6
+  },
+  {
+    "name": "Lua",
+    "img": "assets/pets/Lua.svg",
+    "age": "6 meses",
+    "size": "Porte médio",
+    "characteristics": "Ativa e carinhosa",
+    "location": "Santana de Parnaíba (SP)",
+    "id": 7
+  },
+  {
+    "name": "Amora",
+    "img": "assets/pets/Amora.svg",
+    "age": "45 dias",
+    "size": "Porte grande",
+    "characteristics": "Calma e carinhosa",
+    "location": "Rio de Janeiro (RJ)",
+    "id": 8
+  },
+  {
+    "name": "Zelda",
+    "img": "assets/pets/Zelda.svg",
+    "age": "5 meses",
+    "size": "Porte médio ",
+    "characteristics": "Ativa e amável",
+    "location": "São Paulo (SP)",
+    "id": 9
+  }
+]
