@@ -61,6 +61,7 @@ export const StyledParagraph = styled.p`
   line-height: 26px;
   text-align: center;
   color: ${(props) => (props.color ? props.color : "white")};
+  margin-bottom: 16px;
 `;
 
 export const StyledBox = styled.div`

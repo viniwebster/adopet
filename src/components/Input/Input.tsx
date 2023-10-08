@@ -1,11 +1,12 @@
 import { largeFont } from "UI/Variables";
+import { memo } from "react";
 import styled from "styled-components";
 
 interface PropsStyledInput {
   $width?: string;
   $height?: string;
   $positionPlaceholder?: string;
-  $background?: string
+  $background?: string;
 }
 
 const StyledInput = styled.input<PropsStyledInput>`
@@ -15,7 +16,8 @@ const StyledInput = styled.input<PropsStyledInput>`
   margin: 1rem;
   padding: 1rem 2rem;
 
-  background-color: ${({ $background }) => ($background ? $background : "#f6f6f6")};
+  background-color: ${({ $background }) =>
+    $background ? $background : "#f6f6f6"};
   color: black;
   filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.15));
 
@@ -26,7 +28,12 @@ const StyledInput = styled.input<PropsStyledInput>`
 
   &::placeholder {
     color: #bcbcbc;
-    text-align: ${({ $positionPlaceholder }) => ($positionPlaceholder ? $positionPlaceholder : "center")};
+    text-align: ${({ $positionPlaceholder }) =>
+      $positionPlaceholder ? $positionPlaceholder : "center"};
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 100%;
   }
 `;
 
@@ -42,13 +49,16 @@ interface PropsInput {
   $width?: string;
   $height?: string;
   $positionPlaceholder?: string;
-  $background?: string
+  $background?: string;
   type?: "text" | "search" | "email" | "password" | "message";
   placeholder: string;
   label: string;
   value: string;
   required?: boolean;
+  minLength?: number;
   onChange: (value: string) => void;
+  name?: string
+  innerRef?: React.LegacyRef<HTMLInputElement>
 }
 
 const Input = ({
@@ -61,11 +71,9 @@ const Input = ({
   onChange,
   $height,
   $positionPlaceholder,
-  $background
+  $background,
+  minLength
 }: PropsInput) => {
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
-  };
 
   return (
     <>
@@ -75,7 +83,10 @@ const Input = ({
         placeholder={placeholder}
         value={value}
         required={required}
-        onChange={onChangeInput}
+        minLength={minLength}
+        onChange={(event) => {
+          onChange(event.target.value)
+        }}
         $width={$width}
         $height={$height}
         $background={$background}
@@ -85,4 +96,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default memo(Input);

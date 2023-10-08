@@ -10,13 +10,14 @@ const StyledSection = styled.section`
 
   gap: 24px;
 
-  width: 344px;
+  max-width: 344px;
   height: 100%;
   margin: auto;
 
   a {
     width: 100%;
   }
+
 `;
 
 const StyledTitle = styled.h2`

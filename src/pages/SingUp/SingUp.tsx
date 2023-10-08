@@ -3,23 +3,60 @@ import Button from "components/Button/Button";
 import Input from "components/Input/Input";
 import { StyledForm } from "pages/Login/Login";
 import { useState } from "react";
+import useSetUser from "state/hooks/useSetUser";
+import { v4 as uuidv4 } from "uuid";
 
 const SingUp = () => {
-  const [nome, setNome] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+
+  const submitUser = useSetUser();
 
   const onSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (password === confirmPassword) {
-      console.log("Acesso Confirmado")
-    } else {
-      
-    console.log("tente novamente")
+    const hasUser = sessionStorage.getItem(email);
+    if (hasUser) {
+      setError("Email já cadastrado");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      return;
     }
-  }
+
+    if (password !== confirmPassword) {
+      setError("As senhas precisam ser iguais");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      return;
+    }
+    setError("");
+
+    const newUser = {
+      name: name,
+      email: email,
+      password: password,
+      id: uuidv4(),
+    };
+
+    submitUser(newUser);
+    sessionStorage.setItem(`${email}`, JSON.stringify(newUser));
+
+    setMessage("Usuario cadastrado com sucesso");
+    setTimeout(() => {
+      setMessage("");
+    }, 5000);
+
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
 
   return (
     <StyledForm onSubmit={onSubmitForm}>
@@ -33,14 +70,16 @@ const SingUp = () => {
         $width="552px"
         placeholder="Digite seu nome"
         label="Nome"
-        value={nome}
-        onChange={(event) => setNome(event)}
+        value={name}
+        onChange={(event) => setName(event)}
+        minLength={1}
       />
 
       <Input
         $width="552px"
         placeholder="Digite seu email"
         label="Email"
+        type="email"
         value={email}
         onChange={(event) => setEmail(event)}
       />
@@ -52,6 +91,7 @@ const SingUp = () => {
         value={password}
         onChange={(event) => setPassword(event)}
         type="password"
+        minLength={6}
       />
 
       <Input
@@ -61,9 +101,20 @@ const SingUp = () => {
         value={confirmPassword}
         onChange={(event) => setConfirmPassword(event)}
         type="password"
+        minLength={6}
       />
 
+      {error && (
+        <StyledParagraph role="alert" color="red">
+          {error}
+        </StyledParagraph>
+      )}
       <Button type="submit">Cadastrar</Button>
+      {message && (
+        <StyledParagraph role="alert" color="green">
+          {message}
+        </StyledParagraph>
+      )}
     </StyledForm>
   );
 };
