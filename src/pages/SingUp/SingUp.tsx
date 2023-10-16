@@ -1,10 +1,13 @@
 import { StyledBodyLight, StyledParagraph } from "UI/GlobalStyles";
 import Button from "components/Button/Button";
 import Input from "components/Input/Input";
+import Logo from "assets/Logo-Azul.svg";
 import { StyledForm } from "pages/Login/Login";
 import { useState } from "react";
 import useSetUser from "state/hooks/useSetUser";
 import { v4 as uuidv4 } from "uuid";
+import { btnColor, primaryColor } from "UI/Variables";
+import { Link } from "react-router-dom";
 
 const SingUp = () => {
   const [name, setName] = useState<string>("");
@@ -61,6 +64,7 @@ const SingUp = () => {
   return (
     <StyledForm onSubmit={onSubmitForm}>
       <StyledBodyLight />
+      <img src={Logo} alt="Logo adopet" />
       <StyledParagraph color="#3772FF">
         Ainda não tem cadastro? Então, antes de buscar seu melhor amigo,
         precisamos de alguns dados:
@@ -96,7 +100,7 @@ const SingUp = () => {
 
       <Input
         $width="362px"
-        placeholder="Digite sua Senha"
+        placeholder="Confirme sua Senha"
         label="Confirmar Senha"
         value={confirmPassword}
         onChange={(event) => setConfirmPassword(event)}
@@ -111,10 +115,18 @@ const SingUp = () => {
       )}
       <Button type="submit">Cadastrar</Button>
       {message && (
-        <StyledParagraph role="alert" color="green">
+        <StyledParagraph role="alert" color={primaryColor}>
           {message}
         </StyledParagraph>
       )}
+      <div>
+        <StyledParagraph color={btnColor}>
+          Já possui um cadastro?
+        </StyledParagraph>
+        <Link to={"/login"}>
+          <StyledParagraph color={primaryColor}>Login</StyledParagraph>
+        </Link>
+      </div>
     </StyledForm>
   );
 };

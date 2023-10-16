@@ -34,8 +34,13 @@ export const StyledBodyLight = createGlobalStyle`
     no-repeat left top/40% url(${background}),
     no-repeat right/8% url(${backgroundRight});
 
+  @media screen and (max-width: 900px) {
+    background: no-repeat right top/30% url(${patas}),
+    no-repeat left top/70% url(${background}),
+    no-repeat right/30% url(${backgroundRight});
+  }
     
-  @media screen and (max-width: 450px) {
+  @media screen and (max-width: 500px) {
     background: no-repeat right top/30% url(${patas}),
     no-repeat left top/100% url(${background}),
     no-repeat right/30% url(${backgroundRight});
@@ -58,6 +63,7 @@ export const Container = styled.main`
 
 export const StyledParagraph = styled.p`
   font-size: ${largeFont};
+  font-weight: 500;
   line-height: 26px;
   text-align: center;
   color: ${(props) => (props.color ? props.color : "white")};

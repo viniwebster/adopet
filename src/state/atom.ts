@@ -7,3 +7,7 @@ export const usersListState = atom<IUser[]>({
   default: []
 })
 
+export const userLoginState = atom<boolean>({
+  key: "userLoginState",
+  default: false
+})

@@ -27,10 +27,11 @@ interface Props {
   children: string;
   type?: 'submit' | 'button' | 'reset';
   large?: boolean
+  onClick?: () => void
 }
 
-const Button = ({ children, type = 'button', large }: Props) => {
-  return <StyledButton type={type} $large={large}>{children}</StyledButton>;
+const Button = ({ children, type = 'button', large, onClick }: Props) => {
+  return <StyledButton type={type} $large={large} onClick={onClick}>{children}</StyledButton>;
 };
 
 export default Button;

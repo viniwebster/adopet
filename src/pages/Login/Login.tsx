@@ -3,10 +3,11 @@ import Button from "components/Button/Button";
 import Input from "components/Input/Input";
 import { IUser } from "interfaces/IUser";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useSetAuthUser from "state/hooks/useSetAuthUser";
 import styled from "styled-components";
 import Logo from "assets/Logo-Azul.svg";
+import { btnColor, primaryColor } from "UI/Variables";
 
 interface PropsStyledForm {
   $width?: string;
@@ -18,8 +19,15 @@ export const StyledForm = styled.form<PropsStyledForm>`
   align-items: center;
   width: ${({ $width }) => ($width ? $width : "100%")};
 
-  img{
+  img {
     margin-bottom: 50px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 `;
 
@@ -39,15 +47,11 @@ const Login = () => {
     if (findUser) {
       user = JSON.parse(findUser);
       if (user.email === email && user.password === password) {
-        setMessage(`Bem vindo ${user.name} :)`);
         logged(true);
-        navigate('/pets')
-        setTimeout(() => {
-          setMessage("");
-        }, 5000);
+        navigate("/pets");
       }
     } else {
-      setMessage(`usuario não encontrado ou senha incorreta`);
+      setMessage(`Usuário não encontrado ou senha incorreta`);
       setTimeout(() => {
         setMessage("");
       }, 5000);
@@ -83,13 +87,18 @@ const Login = () => {
         name="password"
         minLength={6}
       />
-
       <Button type="submit">Entrar</Button>
       {message && (
-        <StyledParagraph role="alert" color="green">
+        <StyledParagraph role="alert" color={btnColor}>
           {message}
         </StyledParagraph>
       )}
+      <div>
+        <StyledParagraph color={btnColor}>Não possui um cadastro?</StyledParagraph>
+        <Link to={"/singup"}>
+          <StyledParagraph color={primaryColor}>Cadastre-se</StyledParagraph>
+        </Link>
+      </div>
     </StyledForm>
   );
 };

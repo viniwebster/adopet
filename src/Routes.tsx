@@ -10,6 +10,7 @@ import Pets from "pages/Pets/Pets";
 import Message from "pages/Message/Message";
 import Profile from "pages/Profile/Profile";
 import { RecoilRoot } from "recoil";
+import LoginAuth from "LoginAuth/LoginAuth";
 
 function App() {
   return (
@@ -23,8 +24,22 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/singup" element={<SingUp />} />
             <Route path="/pets" element={<Pets />} />
-            <Route path="/message" element={<Message />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/message"
+              element={
+                <LoginAuth>
+                  <Message />
+                </LoginAuth>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <LoginAuth>
+                  <Profile />
+                </LoginAuth>
+              }
+            />
           </Route>
         </Routes>
         <Footer />
