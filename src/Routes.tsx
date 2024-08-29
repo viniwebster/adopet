@@ -12,39 +12,48 @@ import Profile from "pages/Profile/Profile";
 import { RecoilRoot } from "recoil";
 import LoginAuth from "LoginAuth/LoginAuth";
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <BrowserRouter>
-      <RecoilRoot>
-        <GlobalStyles />
-        <Header />
-        <Routes>
-          <Route path="/" element={<DefaultPage />}>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/singup" element={<SingUp />} />
-            <Route path="/pets" element={<Pets />} />
-            <Route
-              path="/message"
-              element={
-                <LoginAuth>
-                  <Message />
-                </LoginAuth>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <LoginAuth>
-                  <Profile />
-                </LoginAuth>
-              }
-            />
-          </Route>
-        </Routes>
-        <Footer />
-      </RecoilRoot>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <RecoilRoot>
+          <GlobalStyles />
+          <Header />
+          <Routes>
+            <Route path="/" element={<DefaultPage />}>
+              <Route index element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/singup" element={<SingUp />} />
+              <Route path="/pets" element={<Pets />} />
+              <Route
+                path="/message"
+                element={
+                  <LoginAuth>
+                    <Message />
+                  </LoginAuth>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <LoginAuth>
+                    <Profile />
+                  </LoginAuth>
+                }
+              />
+            </Route>
+          </Routes>
+          <Footer />
+        </RecoilRoot>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
