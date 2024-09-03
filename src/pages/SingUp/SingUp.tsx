@@ -5,11 +5,10 @@ import Logo from "assets/Logo-Azul.svg";
 import { StyledForm } from "pages/Login/Login";
 import { useState } from "react";
 import useSetUser from "state/hooks/useSetUser";
-import { v4 as uuidv4 } from "uuid";
 import { btnColor, primaryColor } from "UI/Variables";
 import { Link } from "react-router-dom";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createUser, getAllUsers } from "http/http";
+import { useMutation } from "@tanstack/react-query";
+import { createUser } from "http/http";
 
 const SingUp = () => {
   const [name, setName] = useState<string>("");
@@ -19,7 +18,6 @@ const SingUp = () => {
   const [error, setError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
 
-  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: createUser,

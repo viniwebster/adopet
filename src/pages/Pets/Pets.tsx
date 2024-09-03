@@ -1,7 +1,8 @@
 import { StyledBodyLight, StyledParagraph } from "UI/GlobalStyles";
 import styled from "styled-components";
-import data from "./data.json";
 import Card from "components/Card/Card";
+import { useQuery } from "@tanstack/react-query";
+import { getAllPets } from "http/http";
 
 const StyledCardsContainer = styled.ul`
   display: grid;
@@ -21,6 +22,8 @@ const StyledCardsContainer = styled.ul`
 `;
 
 const Pets = () => {
+  const query = useQuery<IPets[]>({ queryKey: ['pets'], queryFn: getAllPets })
+
   return (
     <section>
       <StyledBodyLight />
@@ -28,7 +31,7 @@ const Pets = () => {
         Olá! Veja os amigos disponíveis para adoção!
       </StyledParagraph>
       <StyledCardsContainer>
-        {data.map((pet) => (
+        {query.data?.map((pet) => (
           <li key={pet.id}>
             <Card
               age={pet.age}
