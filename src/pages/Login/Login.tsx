@@ -8,6 +8,8 @@ import useSetAuthUser from "state/hooks/useSetAuthUser";
 import styled from "styled-components";
 import Logo from "assets/Logo-Azul.svg";
 import { btnColor, primaryColor } from "UI/Variables";
+import { useQuery } from "@tanstack/react-query";
+import { getAllUsers } from "http/http";
 
 interface PropsStyledForm {
   $width?: string;
@@ -36,7 +38,10 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
 
   const [message, setMessage] = useState<string>("");
-  const findUser = sessionStorage.getItem(`${email}`);
+
+  const query = useQuery({queryKey: ["users"], queryFn: getAllUsers})
+
+  const findUser = query.data?.find(u => u.email === email);
   const logged = useSetAuthUser();
   const navigate = useNavigate();
 
@@ -45,8 +50,7 @@ const Login = () => {
     let user: IUser;
 
     if (findUser) {
-      user = JSON.parse(findUser);
-      if (user.email === email && user.password === password) {
+      if (findUser.email === email && findUser.password === password) {
         logged(true);
         navigate("/pets");
       }

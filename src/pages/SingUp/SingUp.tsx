@@ -8,6 +8,8 @@ import useSetUser from "state/hooks/useSetUser";
 import { v4 as uuidv4 } from "uuid";
 import { btnColor, primaryColor } from "UI/Variables";
 import { Link } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createUser, getAllUsers } from "http/http";
 
 const SingUp = () => {
   const [name, setName] = useState<string>("");
@@ -17,20 +19,23 @@ const SingUp = () => {
   const [error, setError] = useState<string>("");
   const [message, setMessage] = useState<string>("");
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createUser,
+    onSuccess: () => {
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("")
+    },
+  });
+
   const submitUser = useSetUser();
 
   const onSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const hasUser = sessionStorage.getItem(email);
-    if (hasUser) {
-      setError("Email já cadastrado");
-      setTimeout(() => {
-        setError("");
-      }, 3000);
-      return;
-    }
-
+    
     if (password !== confirmPassword) {
       setError("As senhas precisam ser iguais");
       setTimeout(() => {
@@ -43,22 +48,15 @@ const SingUp = () => {
     const newUser = {
       name: name,
       email: email,
-      password: password,
-      id: uuidv4(),
+      password: password
     };
 
-    submitUser(newUser);
-    sessionStorage.setItem(`${email}`, JSON.stringify(newUser));
-
+    mutation.mutate(newUser)
+    
     setMessage("Usuario cadastrado com sucesso");
     setTimeout(() => {
       setMessage("");
     }, 5000);
-
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
   };
 
   return (
